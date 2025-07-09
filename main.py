@@ -1,5 +1,6 @@
 import NateUtils
 from operator import itemgetter
+import random, time
 
 posts = []
 
@@ -15,10 +16,21 @@ def suggestSimilar(current):
       toSuggest.append(similarityData)
   toSuggest.sort(key=itemgetter(1))
   return list(reversed(toSuggest))
-  
-addPost("I'm an example!",["Example Tag 1","Example Tag 2","Example Tag 3"])
-addPost("I'm also an example!",["Example Tag 2","Example Tag 3","Example Tag 4"])
-addPost("I'm still an example!",["Example Tag 1","Example Tag 5","Example Tag 7"])
-addPost("I'm definitely an example!",["Example Tag 1","Example Tag 2","Example Tag 3"])
 
-print(suggestSimilar(posts[0]))
+for i in range(100):
+  addPost(f"Example {i}",[f"Example Tag {random.randint(1, 10)}",f"Example Tag {random.randint(1, 10)}",f"Example Tag {random.randint(1, 10)}",f"Example Tag {random.randint(1, 10)}",f"Example Tag {random.randint(1, 10)}"])
+
+times = [] # Speed test, caclulate average performance
+for x in range(100):
+  for i in range(100):
+    start_time = time.time()
+    similar = suggestSimilar(posts[i])
+    times.append(time.time() - start_time)
+    print(f"Post {i}'s best match: ")
+    print(f"Body text: {similar[0][0][0]}")
+    print(f"Tags of match: {similar[0][0][1]}")
+    print(f"Tags of original: {posts[i][1]}")
+    print(f"Percent match: {similar[0][1]}%")
+    print("\n")
+
+print(f"{NateUtils.average(times)}sec per match completed")
