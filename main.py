@@ -19,14 +19,14 @@ def suggestSimilar(current):
 
 postNumber = 100
 for i in range(postNumber):
-  addPost(f"Example {i}",[f"Example Tag {random.randint(1, postNumber)}",f"Example Tag {random.randint(1, postNumber)}",f"Example Tag {random.randint(1, postNumber)}",f"Example Tag {random.randint(1, postNumber)}",f"Example Tag {random.randint(1, postNumber)}"])
+  addPost(f"Example {i}",[f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}"])
 
 times = [] # Speed test, caclulate average performance and accuracy
 accuracy = []
 iterations = 5
 
 for x in range(iterations):
-  for i in len(posts):
+  for i in range(len(posts)):
     start_time = time.time()
     similar = suggestSimilar(posts[i])
     times.append(time.time() - start_time)
@@ -40,4 +40,4 @@ for x in range(iterations):
     time.sleep(0.1)
 
 print(f"{NateUtils.average(times)}sec per match completed")
-print(f"{NateUtils.average(accuracy)}% per match completed")
+print(f"{NateUtils.average(accuracy)}% average accuracy")
