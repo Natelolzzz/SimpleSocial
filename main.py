@@ -17,13 +17,16 @@ def suggestSimilar(current):
   toSuggest.sort(key=itemgetter(1))
   return list(reversed(toSuggest))
 
-for i in range(100):
-  addPost(f"Example {i}",[f"Example Tag {random.randint(1, 10)}",f"Example Tag {random.randint(1, 10)}",f"Example Tag {random.randint(1, 10)}",f"Example Tag {random.randint(1, 10)}",f"Example Tag {random.randint(1, 10)}"])
+postNumber = 100
+for i in range(postNumber):
+  addPost(f"Example {i}",[f"Example Tag {random.randint(1, postNumber)}",f"Example Tag {random.randint(1, postNumber)}",f"Example Tag {random.randint(1, postNumber)}",f"Example Tag {random.randint(1, postNumber)}",f"Example Tag {random.randint(1, postNumber)}"])
 
 times = [] # Speed test, caclulate average performance and accuracy
 accuracy = []
-for x in range(5):
-  for i in range(100):
+iterations = 5
+
+for x in range(iterations):
+  for i in len(posts):
     start_time = time.time()
     similar = suggestSimilar(posts[i])
     times.append(time.time() - start_time)
