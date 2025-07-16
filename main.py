@@ -23,6 +23,23 @@ def suggestSimilar(current):
   toSuggest.sort(key=itemgetter(1))
   return list(reversed(toSuggest))
 
+def test():
+  global iterations, posts, times, accuracy
+  for x in range(iterations):
+    for i in range(len(posts)):
+      start_time = time.time()
+      similar = suggestSimilar(posts[i])
+      times.append(time.time() - start_time)
+      accuracy.append(similar[0][1])
+      print(f"Post {i}'s best match: ")
+      print(f"Body text of original: {posts[i][0]}")
+      print(f"Body text of match: {similar[0][0][0]}")
+      print(f"Tags of match: {similar[0][0][1]}")
+      print(f"Tags of original: {posts[i][1]}")
+      print(f"Percent match: {similar[0][1]}%")
+      print("\n")
+      time.sleep(0.1)
+
 posts = []
 postNumber = 200
 iterations = 1
@@ -32,21 +49,7 @@ for i in range(postNumber):
 
 times = [] # Speed test, caclulate average performance and accuracy, for posts of diffrent text
 accuracy = []
-  
-for x in range(iterations):
-  for i in range(len(posts)):
-    start_time = time.time()
-    similar = suggestSimilar(posts[i])
-    times.append(time.time() - start_time)
-    accuracy.append(similar[0][1])
-    print(f"Post {i}'s best match: ")
-    print(f"Body text of original: {posts[i][0]}")
-    print(f"Body text of match: {similar[0][0][0]}")
-    print(f"Tags of match: {similar[0][0][1]}")
-    print(f"Tags of original: {posts[i][1]}")
-    print(f"Percent match: {similar[0][1]}%")
-    print("\n")
-    time.sleep(0.1)
+test()
 
 print(f"{NateUtils.average(times)}sec per match completed")
 print(f"{NateUtils.average(accuracy)}% average accuracy")
@@ -60,21 +63,7 @@ for i in range(postNumber):
 
 times = [] # Speed test, caclulate average performance and accuracy for posts of the same text
 accuracy = []
-  
-for x in range(iterations):
-  for i in range(len(posts)):
-    start_time = time.time()
-    similar = suggestSimilar(posts[i])
-    times.append(time.time() - start_time)
-    accuracy.append(similar[0][1])
-    print(f"Post {i}'s best match: ")
-    print(f"Body text of original: {posts[i][0]}")
-    print(f"Body text of match: {similar[0][0][0]}")
-    print(f"Tags of match: {similar[0][0][1]}")
-    print(f"Tags of original: {posts[i][1]}")
-    print(f"Percent match: {similar[0][1]}%")
-    print("\n")
-    time.sleep(0.1)
+test()
 
 print(f"{NateUtils.average(times)}sec per match completed")
 print(f"{NateUtils.average(accuracy)}% average accuracy")
