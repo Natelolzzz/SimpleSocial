@@ -38,6 +38,7 @@ def test():
     print(f"Tags of match: {similar[0][0][1]}")
     print(f"Tags of original: {posts[k][1]}")
     print(f"Percent match: {similar[0][1]}%")
+    print(f"Time taken: {time.time() - start_time}")
     print("\n")
     time.sleep(0.1)
 
