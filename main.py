@@ -3,10 +3,11 @@ from operator import itemgetter
 import random, time
 from difflib import SequenceMatcher
 
-adj = ("Adorable", "Clueless", "Dirty", "Odd", "Stupid", "Cool", "Smart", "Normal")
-nouns = ("puppy", "car", "rabbit", "girl", "monkey","boy","woman","man")
-verbs = ("runs", "hits", "jumps", "drives", "barfs", "dances", "punches") 
-adv = ("crazily", "dutifully", "foolishly", "merrily", "occasionally")
+adj = ("Adorable", "Clueless", "Dirty", "Odd", "Stupid", "Cool", "Smart", "Normal", "Big", "Small")
+nouns = ("puppy", "car", "rabbit", "girl", "monkey","boy","woman","man","horse")
+verbs = ("runs", "hits", "jumps", "drives", "barfs", "dances", "punches","explodes","destroys") 
+adv = ("crazily", "dutifully", "foolishly", "merrily", "occasionally","carelessly")
+punct = ("",".","!","?")
 
 def addPost(text,tags):
   post = [text,tags]
@@ -27,7 +28,7 @@ postNumber = 200
 iterations = 1
 
 for i in range(postNumber):
-  addPost(f"{adj[random.randint(0, len(adj)-1)] + ' ' + nouns[random.randint(0, len(nouns)-1)] + ' ' + verbs[random.randint(0, len(verbs)-1)] + ' ' + adv[random.randint(0, len(adv)-1)]}",[f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}"])
+  addPost(f"{adj[random.randint(0, len(adj)-1)] + ' ' + nouns[random.randint(0, len(nouns)-1)] + ' ' + verbs[random.randint(0, len(verbs)-1)] + ' ' + adv[random.randint(0, len(adv)-1)] + punct[random.randint(0, len(punct)-1)]}",[f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}"])
 
 times = [] # Speed test, caclulate average performance and accuracy, for posts of diffrent text
 accuracy = []
@@ -49,6 +50,7 @@ for x in range(iterations):
 
 print(f"{NateUtils.average(times)}sec per match completed")
 print(f"{NateUtils.average(accuracy)}% average accuracy")
+print(f"{max(accuracy)}% most accurate match")
 
 input("Enter to Continue")
 
@@ -76,3 +78,4 @@ for x in range(iterations):
 
 print(f"{NateUtils.average(times)}sec per match completed")
 print(f"{NateUtils.average(accuracy)}% average accuracy")
+print(f"{max(accuracy)}% most accurate match")
