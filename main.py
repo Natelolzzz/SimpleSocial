@@ -1,13 +1,13 @@
 import NateUtils
+import random, time, math
 from operator import itemgetter
-import random, time
 from difflib import SequenceMatcher
 
 adj = ("Adorable", "Clueless", "Dirty", "Odd", "Stupid", "Cool", "Smart", "Normal", "Big", "Small")
-nouns = ("puppy", "car", "rabbit", "girl", "monkey","boy","woman","man","horse")
-verbs = ("runs", "hits", "jumps", "drives", "barfs", "dances", "punches","explodes","destroys") 
-adv = ("crazily", "dutifully", "foolishly", "merrily", "occasionally","carelessly")
-punct = ("",".","!","?")
+nouns = ("puppy", "car", "rabbit", "girl", "monkey", "boy", "woman", "man", "horse" ,"creature","shark")
+verbs = ("runs", "hits", "jumps", "drives", "barfs", "dances", "punches", "explodes", "destroys", "hides") 
+adv = ("crazily", "dutifully", "foolishly", "merrily", "occasionally", "carelessly", "fearlessly", "scaredly")
+punct = ("",".","!","?",":")
 
 def addPost(text,tags):
   post = [text,tags]
@@ -31,7 +31,7 @@ def test():
       similar = suggestSimilar(posts[i])
       times.append(time.time() - start_time)
       accuracy.append(similar[0][1])
-      print(f"Post {i}'s best match: ")
+      print(f"Post {i} (iter {x})'s best match: ")
       print(f"Body text of original: {posts[i][0]}")
       print(f"Body text of match: {similar[0][0][0]}")
       print(f"Tags of match: {similar[0][0][1]}")
@@ -42,10 +42,13 @@ def test():
 
 posts = []
 postNumber = 200
-iterations = 1
+iterations = 2
 
 for i in range(postNumber):
-  addPost(f"{adj[random.randint(0, len(adj)-1)] + ' ' + nouns[random.randint(0, len(nouns)-1)] + ' ' + verbs[random.randint(0, len(verbs)-1)] + ' ' + adv[random.randint(0, len(adv)-1)] + punct[random.randint(0, len(punct)-1)]}",[f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}",f"Example Tag {random.randint(1, round(postNumber/10))}"])
+  tags = []
+  for x in range(round(math.log(postNumber))):
+    tags.append(f"Example Tag {random.randint(1, round(math.log(postNumber))*3)}")
+  addPost(f"{adj[random.randint(0, len(adj)-1)] + ' ' + nouns[random.randint(0, len(nouns)-1)] + ' ' + verbs[random.randint(0, len(verbs)-1)] + ' ' + adv[random.randint(0, len(adv)-1)] + punct[random.randint(0, len(punct)-1)]}",tags)
 
 times = [] # Speed test, caclulate average performance and accuracy, for posts of diffrent text
 accuracy = []
