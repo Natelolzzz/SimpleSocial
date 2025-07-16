@@ -8,6 +8,7 @@ nouns = ("puppy", "car", "rabbit", "girl", "monkey", "boy", "woman", "man", "hor
 verbs = ("runs", "hits", "jumps", "drives", "barfs", "dances", "punches", "explodes", "destroys", "hides") 
 adv = ("crazily", "dutifully", "foolishly", "merrily", "occasionally", "carelessly", "fearlessly", "scaredly")
 punct = ("",".","!","?",":")
+testnum = 0
 
 def addPost(text,tags):
   post = [text,tags]
@@ -24,13 +25,14 @@ def suggestSimilar(current):
   return list(reversed(toSuggest))
 
 def test():
-  global iterations, posts, times, accuracy, y
+  global iterations, posts, times, accuracy, y, testnum
+  testnum += 1
   for k in range(len(posts)):
     start_time = time.time()
     similar = suggestSimilar(posts[k])
     times.append(time.time() - start_time)
     accuracy.append(similar[0][1])
-    print(f"Post {k+1} (iter {y+1})'s best match: ")
+    print(f"Post {k+1} (iter {y+1}) (test number {testnum})'s best match: ")
     print(f"Body text of original: {posts[k][0]}")
     print(f"Body text of match: {similar[0][0][0]}")
     print(f"Tags of match: {similar[0][0][1]}")
@@ -39,8 +41,8 @@ def test():
     print("\n")
     time.sleep(0.1)
 
-postNumber = 100
-iterations = 2
+postNumber = NateUtils.toIntSafe(input("Posts? > "),100)
+iterations = NateUtils.toIntSafe(input("Iterations? > "),100)
 
 times = [] # Caclulate average performance and accuracy, for posts of diffrent text
 accuracy = []
